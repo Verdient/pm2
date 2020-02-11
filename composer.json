@@ -18,10 +18,9 @@
     },
     "require": {
         "php": ">=7.0.0",
-        "verdient/chorus": ">=0.0.3",
-        "verdient/cli": ">=0.0.0"
+        "verdient/chorus": ">=0.0.3"
     },
     "autoload": {
-        "psr-4": {"pm2\\": "src"}
+        "psr-4": {"Verdient\\pm2\\": "src"}
     }
 }

@@ -7,7 +7,7 @@ composer require verdient/pm2
 ```
 ## 配置脚本
 ```php
-use pm2\PM2;
+use Verdient\pm2\PM2;
 
 /**
  * 是否允许合并操作

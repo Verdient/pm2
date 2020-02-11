@@ -1,5 +1,5 @@
 <?php
-namespace pm2;
+namespace Verdient\pm2;
 
 use chorus\InvalidConfigException;
 use chorus\InvalidParamException;
@@ -200,7 +200,6 @@ class PM2 extends \chorus\BaseObject
 				}
 			}
 		}
-		echo $command . PHP_EOL;
 		return $this->runCommand($command);
 	}
 
