@@ -18,6 +18,14 @@ use Verdient\pm2\PM2;
 $enableMerge = true;
 
 /**
+ * 是否跳过环境检查
+ * 对于确定安装了PM2的系统，将该配置项设置为true，跳过环境检查
+ * 否则每次运行都会检查PM2的安装状态
+ * 可选参数，默认为false
+ */
+$skipEnvironmentCheck = false;
+
+/**
  * 脚本配置，格式为[$name => $config]的数组
  * $config 可以为字符串也可以为数组
  * 当$config为数组时，等同于仅配置了数组的$config['script']
@@ -42,8 +50,9 @@ $scripts = [
 ];
 
 $pm2 = new PM2([
-		'enableMerge' => $enableMerge,
-		'scripts ' => $scripts
+		'scripts ' => $scripts,
+		'skipEnvironmentCheck' => $skipEnvironmentCheck,
+		'enableMerge' => $enableMerge
 	]
 ]);
 
