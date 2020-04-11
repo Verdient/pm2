@@ -7,80 +7,66 @@ use chorus\UnsatisfiedExcepiton;
 
 /**
  * PM2
- * PM2
- * ---
  * @author Verdient。
  */
 class PM2 extends \chorus\BaseObject
 {
 	/**
-	 * @var const EVENT_CHECK_ENVIRONMENT
-	 * 检查运行环境
-	 * ----------------------------------
+	 * @var string 检查运行环境事件
 	 * @author Verdient。
 	 */
 	const EVENT_CHECK_ENVIRONMENT = 'checkEnvironment';
 
 	/**
-	 * @var const EVENT_START
-	 * 启动进程
-	 * ----------------------
+	 * @var string 启动进程事件
 	 * @author Verdient。
 	 */
 	const EVENT_START = 'start';
 
 	/**
-	 * @var const EVENT_STOP
-	 * 停止进程
-	 * ---------------------
+	 * @var string 停止进程事件
 	 * @author Verdient。
 	 */
 	const EVENT_STOP = 'stop';
 
 	/**
-	 * @var const EVENT_RESTART
-	 * 停止进程
-	 * ------------------------
+	 * @var string 重启进程事件
 	 * @author Verdient。
 	 */
 	const EVENT_RESTART = 'restart';
 
 	/**
-	 * @var const EVENT_RESET
-	 * 重置进程
-	 * ----------------------
+	 * @var string 重置进程事件
 	 * @author Verdient。
 	 */
 	const EVENT_RESET = 'reset';
 
 	/**
-	 * @var const EVENT_DELETE
-	 * 删除进程
-	 * -----------------------
+	 * @var string 删除进程事件
 	 * @author Verdient。
 	 */
 	const EVENT_DELETE = 'delete';
 
 	/**
-	 * @var Array $scripts
-	 * 脚本
-	 * -------------------
+	 * @var bool 是否跳过环境检查
+	 * @author Verdient。
+	 */
+	public $skipEnvironmentCheck = false;
+
+	/**
+	 * @var array 脚本配置
 	 * @author Verdient。
 	 */
 	public $scripts = [];
 
 	/**
-	 * @var Boolean $enableMerge
-	 * 是否允许合并
-	 * -------------------------
+	 * @var bool 是否允许合并
 	 * @author Verdient。
 	 */
 	public $enableMerge = true;
 
 	/**
-	 * @var Array $_supportMergeCommands
-	 * 支持合并的命令
-	 * ---------------------------------
+	 * @var array 支持合并的命令
 	 * @author Verdient。
 	 */
 	protected $_supportMergeCommands = [
@@ -88,30 +74,21 @@ class PM2 extends \chorus\BaseObject
 	];
 
 	/**
-	 * @var Array $_normalizedScripts
-	 * 格式化后的脚本配置
-	 * ------------------------------
+	 * @var array 格式化后的脚本配置
 	 * @author Verdient。
 	 */
 	protected $_normalizedScripts = false;
 
 	/**
-	 * @var Boolean $_environmentOK
-	 * 环境是否正常
-	 * ----------------------------
+	 * @var bool 环境是否正常
 	 * @author Verdient。
 	 */
-	protected $_environmentOK = [
-		'start', 'stop', 'restart', 'delete'
-	];
+	protected $_environmentOK = false;
 
 	/**
-	 * useMerge(String $command)
 	 * 是否使用合并
-	 * -------------------------
-	 * @param String $command 命令
-	 * --------------------------
-	 * @return Boolean
+	 * @param string $command 命令
+	 * @return bool
 	 * @author Verdient。
 	 */
 	protected function useMerge($command){
@@ -122,14 +99,11 @@ class PM2 extends \chorus\BaseObject
 	}
 
 	/**
-	 * requestScripts(Array $args[, Boolean $exist = true, Boolean $running = false])
 	 * 获取请求的脚本
-	 * ------------------------------------------------------------------------------
-	 * @param Array $args 请求的参数
-	 * @param Boolean $exist 是否只包含已存在的
-	 * @param Boolean $exist 是否只包含正在运行的
-	 * --------------------------------------
-	 * @return Array
+	 * @param array $args 请求的参数
+	 * @param bool $exist 是否只包含已存在的
+	 * @param bool $running 是否只包含正在运行的
+	 * @return array
 	 * @author Verdient。
 	 */
 	protected function requestScripts($args, $exist = true, $running = false){
@@ -153,12 +127,9 @@ class PM2 extends \chorus\BaseObject
 	}
 
 	/**
-	 * runCommand(String $command)
 	 * 执行命令
-	 * ---------------------------
-	 * @param String $command 命令
-	 * --------------------------
-	 * @return Array
+	 * @param string $command 命令
+	 * @return array
 	 * @author Verdient。
 	 */
 	protected function runCommand($command){
@@ -167,12 +138,9 @@ class PM2 extends \chorus\BaseObject
 	}
 
 	/**
-	 * runPM2Command(String $command)
 	 * 运行PM2命令
-	 * ------------------------------
-	 * @param String $command 命令
-	 * --------------------------
-	 * @return Array
+	 * @param string $command 命令
+	 * @return array
 	 * @author Verdient。
 	 */
 	protected function runPM2Command($command, $args = []){
@@ -204,12 +172,9 @@ class PM2 extends \chorus\BaseObject
 	}
 
 	/**
-	 * normalizeOutput(Array $output)
 	 * 格式化输出
-	 * ------------------------------
-	 * @param Array $output 输出
-	 * ------------------------
-	 * @return Array
+	 * @param array $output 输出
+	 * @return array
 	 * @author Verdient。
 	 */
 	protected function normalizeOutput($output){
@@ -223,10 +188,8 @@ class PM2 extends \chorus\BaseObject
 	}
 
 	/**
-	 * getNormalizedScripts()
 	 * 获取格式化后的脚本配置
-	 * ----------------------
-	 * @return Array
+	 * @return array
 	 * @author Verdient。
 	 */
 	public function getNormalizedScripts(){
@@ -261,38 +224,36 @@ class PM2 extends \chorus\BaseObject
 	}
 
 	/**
-	 * getExistScrpits()
 	 * 获取已存在的进程
-	 * -----------------
-	 * @return Array
+	 * @return array
 	 * @author Verdient。
 	 */
 	public function getExistScrpits(){
-		return array_column($this->list(), 'appname');
+		$scripts = [];
+		foreach($this->list() as $row){
+			$scripts[] = isset($row['appname']) ? $row['appname'] : $row['name'];
+		}
+		return $scripts;
 	}
 
 	/**
-	 * getRuningScrpits()
 	 * 获取正在运行的进程
-	 * -------------------
-	 * @return Array
+	 * @return array
 	 * @author Verdient。
 	 */
 	protected function getRuningScrpits(){
 		$scripts = [];
 		foreach($this->list() as $row){
 			if($row['status'] === 'online'){
-				$scripts[] = $row['appname'];
+				$scripts[] = isset($row['appname']) ? $row['appname'] : $row['name'];
 			}
 		}
 		return $scripts;
 	}
 
 	/**
-	 * checkNodeJs()
-	 * 检查node.js
-	 * -------------
-	 * @return Boolean
+	 * 检查Node.js
+	 * @return bool
 	 * @author Verdient。
 	 */
 	protected function checkNodeJs(){
@@ -301,9 +262,8 @@ class PM2 extends \chorus\BaseObject
 	}
 
 	/**
-	 * checkPM2()
 	 * 检查PM2
-	 * ----------
+	 * @return bool
 	 * @author Verdient。
 	 */
 	protected function checkPM2(){
@@ -312,19 +272,20 @@ class PM2 extends \chorus\BaseObject
 	}
 
 	/**
-	 * checkEnvironment()
 	 * 检查环境
-	 * ------------------
+	 * @return bool
 	 * @author Verdient。
 	 */
 	protected function checkEnvironment(){
 		if($this->_environmentOK === false){
-			$this->trigger(static::EVENT_CHECK_ENVIRONMENT);
-			if(!$this->checkPM2()){
-				if(!$this->checkNodeJs()){
-					throw new UnsatisfiedExcepiton('请先安装 node.js');
+			if($this->skipEnvironmentCheck === false){
+				$this->trigger(static::EVENT_CHECK_ENVIRONMENT);
+				if(!$this->checkPM2()){
+					if(!$this->checkNodeJs()){
+						throw new UnsatisfiedExcepiton('请先安装 node.js');
+					}
+					throw new UnsatisfiedExcepiton('请先安装 PM2');
 				}
-				throw new UnsatisfiedExcepiton('请先安装 PM2');
 			}
 			$this->_environmentOK = true;
 		}
@@ -332,12 +293,9 @@ class PM2 extends \chorus\BaseObject
 	}
 
 	/**
-	 * getEventName(String $operation)
 	 * 获取事件名称
-	 * -----------------------------
-	 * @param String $operation 操作
-	 * ----------------------------
-	 * @return String
+	 * @param string $operation 操作
+	 * @return string
 	 * @author Verdient。
 	 */
 	protected function getEventName($operation){
@@ -352,14 +310,11 @@ class PM2 extends \chorus\BaseObject
 	}
 
 	/**
-	 * execute(String $operation, Array $names[, Array $args = []])
 	 * 执行
-	 * ------------------------------------------------------------
-	 * @param String $operation 操作
-	 * @param Array $names 名称
-	 * @param Array $args 附加参数
-	 * -----------------------------
-	 * @return Boolean
+	 * @param string $operation 操作
+	 * @param array $names 名称
+	 * @param array $args 参数
+	 * @return bool
 	 * @author Verdient。
 	 */
 	protected function execute($operation, $names, $args = []){
@@ -427,13 +382,10 @@ class PM2 extends \chorus\BaseObject
 	}
 
 	/**
-	 * start([Array $names = [], Array $args = []])
 	 * 启动
-	 * --------------------------------------------
-	 * @param Array $names 名称
-	 * @param Array $args 参数
-	 * ------------------------
-	 * @return Boolean
+	 * @param array $names 名称
+	 * @param array $args 参数
+	 * @return bool
 	 * @author Verdient。
 	 */
 	public function start($names = [], $args = []){
@@ -441,12 +393,9 @@ class PM2 extends \chorus\BaseObject
 	}
 
 	/**
-	 * stop([Array $names = []])
 	 * 停止
-	 * -------------------------
-	 * @param Array $names 名称
-	 * -----------------------
-	 * @return Boolean
+	 * @param array $names 名称
+	 * @return bool
 	 * @author Verdient。
 	 */
 	public function stop($names = []){
@@ -454,12 +403,9 @@ class PM2 extends \chorus\BaseObject
 	}
 
 	/**
-	 * restart([Array $names = []])
 	 * 重启
-	 * ----------------------------
-	 * @param Array $names 名称
-	 * ------------------------
-	 * @return Boolean
+	 * @param array $names 名称
+	 * @return bool
 	 * @author Verdient。
 	 */
 	public function restart($names = []){
@@ -467,12 +413,9 @@ class PM2 extends \chorus\BaseObject
 	}
 
 	/**
-	 * reset([Array $names = []])
 	 * 重置
-	 * --------------------------
-	 * @param Array $names 名称
-	 * ------------------------
-	 * @return Boolean
+	 * @param array $names 名称
+	 * @return bool
 	 * @author Verdient。
 	 */
 	public function reset($names = []){
@@ -480,12 +423,9 @@ class PM2 extends \chorus\BaseObject
 	}
 
 	/**
-	 * delete([Array $names = []])
 	 * 删除
-	 * ---------------------------
-	 * @param Array $names 名称
-	 * -----------------------
-	 * @return Boolean
+	 * @param array $names 名称
+	 * @return bool
 	 * @author Verdient。
 	 */
 	public function delete($names = []){
@@ -493,12 +433,9 @@ class PM2 extends \chorus\BaseObject
 	}
 
 	/**
-	 * flush([Array $names = []])
 	 * 刷新日志
-	 * --------------------------
-	 * @param Array $names 名称
-	 * -----------------------
-	 * @return Boolean
+	 * @param array $names 名称
+	 * @return bool
 	 * @author Verdient。
 	 */
 	public function flush($names = []){
@@ -506,29 +443,42 @@ class PM2 extends \chorus\BaseObject
 	}
 
 	/**
-	 * list()
 	 * 列表
-	 * ------
-	 * @return Array
+	 * @return array
 	 * @author Verdient。
 	 */
 	public function list(){
 		$scripts = [];
 		$output = $this->normalizeOutput($this->runPM2Command('list'));
 		$length = count($output);
-		if($length > 5){
-			$tiltes = [];
-			foreach($output[1] as $element){
-				$tiltes[] = strtolower(str_replace(' ', '', $element));
-			}
-			for($i = 3; $i < ($length - 2); $i++){
-				$row = [];
-				foreach($tiltes as $index => $tilte){
-					if(!empty($tilte)){
-						$row[$tilte] = $output[$i][$index];
-					}
+		if($length > 4){
+			$startAt = 0;
+			$listStartAt = 0;
+			$endAt = 0;
+			foreach($output as $line => $value){
+				$value = mb_substr($value[0], 0, 1);
+				if($value === '┌'){
+					$startAt = $line;
+				}else if($value === '├'){
+					$listStartAt = $line;
+				}else if($value === '└'){
+					$endAt = $line;
 				}
-				$scripts[] = $row;
+			}
+			if($endAt > $listStartAt && $listStartAt > $startAt && $listStartAt > 0){
+				$tiltes = [];
+				foreach($output[$startAt + 1] as $element){
+					$tiltes[] = strtolower(str_replace(' ', '', $element));
+				}
+				for($i = $listStartAt + 1; $i < $endAt; $i++){
+					$row = [];
+					foreach($tiltes as $index => $tilte){
+						if(!empty($tilte)){
+							$row[$tilte] = $output[$i][$index];
+						}
+					}
+					$scripts[] = $row;
+				}
 			}
 		}
 		return $scripts;

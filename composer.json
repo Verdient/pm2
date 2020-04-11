@@ -18,7 +18,7 @@
     },
     "require": {
         "php": ">=7.0.0",
-        "verdient/chorus": ">=0.0.3"
+        "verdient/chorus": "~0.0.6"
     },
     "autoload": {
         "psr-4": {"Verdient\\pm2\\": "src"}
