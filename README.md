@@ -38,15 +38,14 @@ $skipEnvironmentCheck = false;
  * 程序以$name作为唯一标识，所以$name不允许重复
  */
 $scripts = [
-	'scripts' => [
-		'test' => [
-			'script' => 'index.php',
-			'cwd' => __DIR__,
-			'args' => [],
-			'interpreter' => 'php',
-			'interpreter_args' => []
-		],
-		'test2' => __DIR__ . DIRECTORY_SEPARATOR . 'index.php',
+	'test' => [
+		'script' => 'index.php',
+		'cwd' => __DIR__,
+		'args' => [],
+		'interpreter' => 'php',
+		'interpreter_args' => []
+	],
+	'test2' => __DIR__ . DIRECTORY_SEPARATOR . 'index.php',
 ];
 
 $pm2 = new PM2([
