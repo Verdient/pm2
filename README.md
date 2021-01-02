@@ -52,7 +52,6 @@ $pm2 = new PM2([
 		'scripts ' => $scripts,
 		'skipEnvironmentCheck' => $skipEnvironmentCheck,
 		'enableMerge' => $enableMerge
-	]
 ]);
 
 ```
